@@ -1,6 +1,23 @@
+import { useForm } from "react-hook-form";
 import FormInput from "../../../components/ui/form-input";
+import { useAppDispatch } from "../../../hooks/use-store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { AddMusicDTO, addMusicSchema } from "../../../validation/musicSchema";
 
 export default function AddMusicForm() {
+  const dispatch = useAppDispatch();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<AddMusicDTO>({
+    resolver: zodResolver(addMusicSchema),
+  });
+
+  async function onSubmit(data: AddMusicDTO) {
+    reset();
+  }
   return (
     <div>
       <form className="flex flex-col gap-4">
